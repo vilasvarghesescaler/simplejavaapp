@@ -1,5 +1,11 @@
 version: 0.2
 
+env:
+  variables:
+    ECR_REPO_NAME: "simplejavaapp"
+    IMAGE_TAG: "latest"
+
+    
 
 phases:
   install:
@@ -29,4 +35,12 @@ phases:
       - docker --version
       - mvn -version
       
-      - mvn -version
+  pre_build:
+    commands:
+      - echo "===== PRE-BUILD PHASE ====="
+
+      - echo "Logging in to ECR..."
+      - aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
+      
+      - echo "Running Maven package..."
+      - mvn -B clean package -DskipTests
