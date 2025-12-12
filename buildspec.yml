@@ -1,0 +1,8 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "===== INSTALL PHASE (Ubuntu) ====="
+      - echo "Updating apt index..."
+      - apt-get update -y
