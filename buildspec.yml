@@ -7,3 +7,26 @@ phases:
       - echo "===== INSTALL PHASE (Ubuntu) ====="
       - echo "Updating apt index..."
       - apt-get update -y
+
+      # Install docker CLI if not present
+      - |
+        if ! command -v docker >/dev/null 2>&1; then
+          echo "Installing Docker..."
+          apt-get install -y docker.io
+        fi
+
+      # Install Maven if not present
+      - |
+        if ! command -v mvn >/dev/null 2>&1; then
+          echo "Installing Maven..."
+          apt-get install -y maven
+        fi
+
+      # Install kubectl
+      #these lines are removed 
+      
+      - echo "Tool versions:"
+      - docker --version
+      - mvn -version
+      
+      - mvn -version
