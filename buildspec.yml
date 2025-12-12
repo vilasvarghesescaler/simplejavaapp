@@ -54,3 +54,14 @@ phases:
       - docker build -t "$ECR_REPO_NAME:$IMAGE_TAG" .
       - docker tag "$ECR_REPO_NAME:$IMAGE_TAG" "$IMAGE_URI"
 
+  post_build:
+    commands:
+      - echo "===== PUSH & DEPLOY ====="
+
+      # Push image
+      - docker push "$IMAGE_URI"
+
+artifacts:
+  files:
+    - target/*.jar
+    - target/*.war    
